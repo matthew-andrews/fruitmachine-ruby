@@ -49,15 +49,16 @@ module FruitMachine
     def each
       @children.each { |child|
         result = yield child
-        return result unless result.nil?
+        return result if result
       }
+      nil
     end
 
     def id(id = nil)
       return @_id if id.nil?
       return @_ids[id] if @_ids[id]
       return each { |view|
-        return view.id id
+        view.id id
       }
     end
 

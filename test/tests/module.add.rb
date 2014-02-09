@@ -60,14 +60,13 @@ module FruitMachine
       apple = @_fm.create "apple"
       orange = @_fm.create "orange"
       layout = @_fm.create "layout"
-      layout.add apple, 1
+      layout.add apple, "1"
 
-      assert_equal layout.slots[1], apple
+      assert_equal layout.slots["1"], apple
 
-      layout.add orange, 1
+      layout.add orange, "1"
 
-      assert_equal layout.slots[1], orange
-
+      assert_equal layout.slots["1"], orange
       refute layout.module "apple"
     end
 
