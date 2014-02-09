@@ -1,6 +1,6 @@
 module FruitMachine
   class Module
-    attr_accessor :children, :slot, :slots, :model, :parent
+    attr_accessor :classes, :children, :slot, :slots, :model, :parent
 
     def initialize(machine, options = {})
       @children = []
@@ -59,6 +59,32 @@ module FruitMachine
       return each { |view|
         return view.id id
       }
+    end
+
+    def to_html
+      data = {}
+      template_instance = @fruitmachine.config[:template_instance]
+
+      # Create an array for view children data needed in template.
+      data[@fruitmachine.config[:template_iterator]] = []
+
+      # Loop each child
+      each { |child|
+        tmp = {}
+        html = child.to_html
+        slot = !child.slot.nil? ? child.slot : child.id
+        data[slot] = html
+        tmp[template_instance] = html
+        data["children"].push(tmp.merge(child.model.toJSON))
+      }
+
+      # Run the template render method passing children data (for
+      # looping or child views) mixed with the view's model data.
+      html = template(data.merge(@model.toJSON))
+
+      # Wrap the html in a FruitMachine generated root element and
+      # return.
+      _wrap_html html;
     end
 
     def module(key = nil)
@@ -136,17 +162,25 @@ module FruitMachine
 
     def _configure(options)
 
-      # TODO: Finish implementing setup properties
+      # Setup properties
+      @_fmid = "NO!"
+      @_id = "NO!"
+      @classes = !options['classes'].nil? ? options['classes'] : (!@classes.nil? ? @classes : []);
+      @tag = options["tag"].nil? ? "div" : options["tag"]
       @slot = !options["slot"].nil? ? options["slot"] : nil
       @_module = !options["module"].nil? ? options["module"] : self.class.name
 
       # Use the model passed in,
       # or create a model from
       # the data passed in.
-      model = options["model"] ? options["model"] : (options["data"] ? options["data"] : [])
+      model = options["model"] ? options["model"] : (options["data"] ? options["data"] : {})
 
       # Ensure model is a model
       @model = @fruitmachine.model model
+    end
+
+    def _wrap_html(html)
+      '<' + @tag + ' class="' + @_module + ' ' + @classes.join(" ") + '"' + ' id="' + @_fmid + '">' + html + '</' + @tag + '>';
     end
   end
 end

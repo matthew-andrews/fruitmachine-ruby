@@ -3,9 +3,15 @@ module FruitMachine
   end
 
   class FruitMachine
+    attr_accessor :config
+
     def initialize(model)
       reset
       @_model = model
+      @config = {
+        :template_iterator => "children",
+        :template_instance => "child"
+      }
     end
 
     def define(klasses, name = nil)

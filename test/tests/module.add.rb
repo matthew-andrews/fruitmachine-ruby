@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'fruit_machine_singleton'
 
 module FruitMachine
-  class TestModule < MiniTest::Unit::TestCase
+  class TestModuleAdd < MiniTest::Unit::TestCase
     def setup
       @_fm = FruitMachineSingleton.instance
       @_fm.define Test::Apple
