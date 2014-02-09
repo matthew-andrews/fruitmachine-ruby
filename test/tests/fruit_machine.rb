@@ -87,6 +87,13 @@ module FruitMachine
       assert_instance_of Test::MyModel, apple.model
     end
 
+    def test_model_already_instantiated
+      @_fm.define Test::Apple
+      model = MattAndrews::Model.new({ "collection" => [1, 2, 3] })
+      apple = @_fm.create "apple", { "model" => model }
+      assert_instance_of MattAndrews::Model, apple.model
+    end
+
     def test_should_be_able_two_define_same_module_twice
 
       # Default
