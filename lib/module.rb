@@ -91,7 +91,6 @@ module FruitMachine
       return @_module if key.nil?
       return @_modules[key][0] if @_modules[key] && @_modules[key][0]
       each { |view| view.module key }
-      nil
     end
 
     def name
