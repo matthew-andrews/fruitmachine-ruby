@@ -54,8 +54,9 @@ module FruitMachine
       nil
     end
 
-    def id(id = nil)
-      return @_id if id.nil?
+    def id(*args)
+      return @_id if args.length === 0
+      id = args[0]
       return @_ids[id] if @_ids[id]
       return each { |view|
         view.id id
