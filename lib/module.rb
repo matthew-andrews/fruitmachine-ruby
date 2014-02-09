@@ -75,12 +75,12 @@ module FruitMachine
         slot = !child.slot.nil? ? child.slot : child.id
         data[slot] = html
         tmp[template_instance] = html
-        data["children"].push(tmp.merge(child.model.toJSON))
+        data["children"].push(tmp.merge(child.model.to_json))
       }
 
       # Run the template render method passing children data (for
       # looping or child views) mixed with the view's model data.
-      html = template(data.merge(@model.toJSON))
+      html = template(data.merge(@model.get))
 
       # Wrap the html in a FruitMachine generated root element and
       # return.
