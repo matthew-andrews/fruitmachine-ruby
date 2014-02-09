@@ -94,6 +94,14 @@ module FruitMachine
       each { |view| view.module key }
     end
 
+    def modules(key)
+      list = @_modules[key] ? @_modules[key] : []
+      each { |view|
+        list.concat view.modules key
+      }
+      list
+    end
+
     def name
       @_module
     end
