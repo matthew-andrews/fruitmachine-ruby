@@ -171,8 +171,8 @@ module FruitMachine
     def _configure(options)
 
       # Setup properties
-      @_id = !options["id"].nil? ? options["id"] : "NO!"
-      @_fmid = !options["fmid"].nil? ? options["fmid"] : "NO!"
+      @_id = !options["id"].nil? ? options["id"] : Util.unique_id
+      @_fmid = !options["fmid"].nil? ? options["fmid"] : Util.unique_id("fmid")
       @classes = !options['classes'].nil? ? options['classes'] : (!@classes.nil? ? @classes : []);
       @tag = options["tag"].nil? ? "div" : options["tag"]
       @slot = !options["slot"].nil? ? options["slot"] : nil
