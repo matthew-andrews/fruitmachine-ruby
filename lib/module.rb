@@ -137,12 +137,13 @@ module FruitMachine
     def _configure(options)
 
       # TODO: Finish implementing setup properties
-      @_module = !options['module'].nil? ? options['module'] : self.class.name;
+      @slot = !options["slot"].nil? ? options["slot"] : nil
+      @_module = !options["module"].nil? ? options["module"] : self.class.name
 
       # Use the model passed in,
       # or create a model from
       # the data passed in.
-      model = options['model'] ? options['model'] : (options['data'] ? options['data'] : []);
+      model = options["model"] ? options["model"] : (options["data"] ? options["data"] : [])
 
       # Ensure model is a model
       @model = @fruitmachine.model model

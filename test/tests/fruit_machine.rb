@@ -7,43 +7,43 @@ require 'bootstrap'
 module FruitMachine
   class TestFruitMachine < MiniTest::Unit::TestCase
     def setup
-      @fm = FruitMachineSingleton.instance
+      @_fm = FruitMachineSingleton.instance
     end
 
     def teardown
-      @fm.reset
+      @_fm.reset
     end
 
     def test_define_allows_module_to_be_built_via_create
-      @fm.define Test::Apple
-      apple = @fm.create 'apple'
+      @_fm.define Test::Apple
+      apple = @_fm.create 'apple'
       assert_instance_of Test::Apple, apple
     end
 
     def test_define_allows_accepts_array
-      @fm.define [Test::Apple, Test::Orange]
-      apple = @fm.create 'apple'
-      orange  = @fm.create 'orange'
+      @_fm.define [Test::Apple, Test::Orange]
+      apple = @_fm.create 'apple'
+      orange  = @_fm.create 'orange'
       assert_instance_of Test::Apple, apple
       assert_instance_of Test::Orange, orange
     end
 
     def test_creating_an_undefined_module_throws_error
       assert_raises ModuleNotDefinedError do
-        apple = @fm.create 'apple'
+        apple = @_fm.create 'apple'
       end
     end
 
     def test_defining_an_non_existent_class_throws_error
       assert_raises NameError do
-        apple = @fm.define Test::Silly
+        apple = @_fm.define Test::Silly
       end
     end
 
     def test_create_should_be_able_to_understand_json_encodable_array
-      @fm.define Test::Apple
-      @fm.define Test::Orange
-      @fm.define Test::Layout
+      @_fm.define Test::Apple
+      @_fm.define Test::Orange
+      @_fm.define Test::Layout
 
       json = '{
         "module": "layout",
@@ -57,7 +57,7 @@ module FruitMachine
         }
       }'
 
-      layout = @fm.create(JSON.parse(json))
+      layout = @_fm.create(JSON.parse(json))
       assert_equal "layout", layout.class.name
       slot1 = layout.slots["1"];
       slot2 = layout.slots["2"];
@@ -90,39 +90,39 @@ module FruitMachine
     def test_should_be_able_two_define_same_module_twice
 
       # Default
-      @fm.define Test::Apple
+      @_fm.define Test::Apple
 
       # Simple
-      @fm.define Test::Apple, "crabapple"
+      @_fm.define Test::Apple, "crabapple"
 
       # Array
-      @fm.define({
+      @_fm.define({
         "toffee-apple" => Test::Apple,
         "apple-pie" => Test::Apple
       })
 
-      crabapple = @fm.create "crabapple"
+      crabapple = @_fm.create "crabapple"
       assert_equal "crabapple", crabapple.name
 
-      toffee_apple = @fm.create "toffee-apple"
+      toffee_apple = @_fm.create "toffee-apple"
       assert_equal "toffee-apple", toffee_apple.name
 
-      apple_pie = @fm.create "apple-pie"
+      apple_pie = @_fm.create "apple-pie"
       assert_equal "apple-pie", apple_pie.name
     end
 
     def test_modules_can_be_defined_with_regexes_for_names
-      @fm.define Test::Orange, /[A-Z]+/
-      @fm.define Test::Apple, /.*/
-      @fm.define Test::Orange
-      @fm.define Test::Pear, 'not-a-pear'
+      @_fm.define Test::Orange, /[A-Z]+/
+      @_fm.define Test::Apple, /.*/
+      @_fm.define Test::Orange
+      @_fm.define Test::Pear, 'not-a-pear'
 
-      apple = @fm.create 'apple'
-      cabbage = @fm.create 'cabbage'
-      orange = @fm.create 'orange'
-      pear = @fm.create 'pear'
-      notAPear = @fm.create 'not-a-pear'
-      capitals = @fm.create 'CAPITALS'
+      apple = @_fm.create 'apple'
+      cabbage = @_fm.create 'cabbage'
+      orange = @_fm.create 'orange'
+      pear = @_fm.create 'pear'
+      notAPear = @_fm.create 'not-a-pear'
+      capitals = @_fm.create 'CAPITALS'
 
       assert_instance_of Test::Apple, apple
       assert_instance_of Test::Apple, cabbage
