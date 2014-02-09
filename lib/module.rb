@@ -163,8 +163,8 @@ module FruitMachine
     def _configure(options)
 
       # Setup properties
-      @_fmid = "NO!"
-      @_id = "NO!"
+      @_id = !options["id"].nil? ? options["id"] : "NO!"
+      @_fmid = !options["fmid"].nil? ? options["fmid"] : "NO!"
       @classes = !options['classes'].nil? ? options['classes'] : (!@classes.nil? ? @classes : []);
       @tag = options["tag"].nil? ? "div" : options["tag"]
       @slot = !options["slot"].nil? ? options["slot"] : nil
