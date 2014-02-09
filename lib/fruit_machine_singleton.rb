@@ -1,5 +1,5 @@
 require 'fruit_machine'
-require 'model'
+require 'matt_andrews/model'
 
 module FruitMachine
   class FruitMachineSingleton

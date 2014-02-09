@@ -1,6 +1,6 @@
 require 'fruit_machine'
 require 'module'
-require 'model'
+require 'matt_andrews/model'
 
 module Test
   class Apple < FruitMachine::Module

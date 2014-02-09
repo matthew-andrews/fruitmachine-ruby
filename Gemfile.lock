@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/matthew-andrews/model-ruby.git
-  revision: 5eda5528818dcac3ca32390961c6c151e529df24
-  tag: v1.0.0
+  revision: ffd28ed210ddaa61a2cb676fb9a9c6aca30d6b7b
+  branch: master
   specs:
-    matt_andrews-model (0.0.2)
+    matt_andrews-model (0.0.1)
 
 GEM
   remote: https://rubygems.org/
