@@ -49,7 +49,7 @@ module FruitMachine
     def each
       @children.each { |child|
         result = yield child
-        return result if result
+        result if result
       }
       nil
     end
